@@ -233,6 +233,8 @@ private struct SharedSenderReceiver(Sender, Scheduler, ResetLogic resetLogic) {
 		printf("state=%p\n", state);
 		fflush(stdout);
 		state.process!(resetLogic)(v);
+		printf("after process\n");
+		fflush(stdout);
 	}
 
 	shared(StopToken) getStopToken() @safe nothrow {
@@ -255,6 +257,10 @@ private struct SharedSenderState(Sender) {
 
 private template process(ResetLogic resetLogic) {
 	void process(State, InternalValue)(State state, InternalValue value) @safe {
+		import core.stdc.stdio;
+		printf("in process\n");
+		fflush(stdout);
+		
 		state.inst.value = value;
 		static if (resetLogic == ResetLogic.alwaysReset) {
 			size_t updateFlag = 0;
