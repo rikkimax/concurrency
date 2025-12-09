@@ -225,7 +225,12 @@ private struct SharedSenderReceiver(Sender, Scheduler, ResetLogic resetLogic) {
 		process(InternalValue(e));
 	}
 
-	private void process(InternalValue v) @safe {
+	private void process(InternalValue v) @trusted {
+		import core.stdc.stdio;
+		printf("process this=%p\n", &this);
+		fflush(stdout);
+		printf("state=%p\n", state);
+		fflush(stdout);
 		state.process!(resetLogic)(v);
 	}
 
