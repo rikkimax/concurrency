@@ -256,7 +256,7 @@ private struct SharedSenderState(Sender) {
 }
 
 private template process(ResetLogic resetLogic) {
-	void process(State, InternalValue)(State state, InternalValue value) @safe {
+	void process(State, InternalValue)(State state, InternalValue value) @trusted {
 		import core.stdc.stdio;
 		printf("in process\n");
 		fflush(stdout);
